@@ -16,12 +16,29 @@
             align-items: center;
             text-align: center;
         }
+        .container {    
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .nav {
+            padding:10px;
+            text-align: center;
+            font-size: 18px;
+        }
     </style>
-</head>
-<body>
-    <div class="container">
-        <div class="title">
-        <h1>Andreas Thomaidis</h1>
+</head>     
+<body>      
+    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; max-width: 900px; margin: 0 auto;">
+        <div class="container">
+            <h1 class="title" style="margin-bottom: 32px;">Andreas Thomaidis</h1>
+            <div class="nav">
+                <a href="about.html">about</a> |
+                <a href="contact.html">contact</a> |
+                <a href="">github</a>
+            </div>
         </div>
     </div>
 </body>
