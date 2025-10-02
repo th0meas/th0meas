@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vagabond</title>
+        <link rel="stylesheet" href="style.css">   
+        <style>
+            .box{
+                width: 60%;
+                text-align: center;
+                margin: auto;
+            }
+            img {
+                max-width: 300px;
+                max-height: 300px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <div class="nav">
+            <a class="Home" href="home.html">Home</a>
+            <a href="about.html">Vagabond</a>
+            <a href="photos.html">Images</a>
+            <a href="spotify.html">Spotify Wraped</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="container">
+            <h2>Vagabond</h2>
+            <br>
+            <hr>
+            <div class="box">
+            <p>Vagabond by Takehiko Inoue is a masterful manga adaptation of Eiji Yoshikawa's novel Musashi, which reimagines the life of Miyamoto Musashi, one of Japan's most iconic swordsmen. The story begins with Musashi, originally known as Shinmen Takezo, as a young and reckless warrior consumed by his thirst for power and his desire to become the strongest swordsman in Japan. His early journey is marked by violence and ego, as he seeks to prove his strength through duels and battles.
+                However, as the story unfolds, Musashi undergoes profound character development. Through his encounters with skilled rivals, his mentor-like figure Takuan, and the introspective artist Matahachi, he begins to question the meaning of strength and the path he has chosen. Musashi learns that true mastery lies not in brute force but in discipline, self-awareness, and the harmony between body and mind.
+                Over time, his perspective shifts from seeking external validation to pursuing inner growth and enlightenment. He grapples with themes of loneliness, ambition, and the weight of his actions as he strives to understand the essence of being a warrior. This transformation is central to Vagabond, which pairs its rich storytelling with breathtaking, hyper-detailed artwork that captures the raw emotion and philosophical depth of Musashi's journey.
+                Ultimately, Vagabond is not just a tale of swords and battles but a profound exploration of what it means to live with purpose, embrace one's humanity, and find peace within oneself.</p>
+            </div>
+            </div> 
+        <div>
+            <img id="image" src="">
+        </div>
+    </body>
+    <script>
+        const images = [
+            "MusashiFace.png",
+            "MusashiWater.png",
+            "MusashiPray.jpg"
+        ];
+
+        let current = 0;
+        let myInterval = null;
+        const current_image = document.getElementById('image');
+
+        function changeCurrent() {
+            updateImage();
+            current = (current + 1) % images.length; 
+        }
+
+        function updateImage() {
+            current_image.src = images[current];
+        }
+
+        window.onload = () => {
+            updateImage(); 
+            myInterval = setInterval(changeCurrent, 2000); 
+        };
+    </script>
+</html>

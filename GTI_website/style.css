@@ -1,0 +1,92 @@
+/* Google Font I liked*/
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap');
+
+/* Global Styles */
+body {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(247, 250, 224);
+    color: #333;
+}
+
+/* Navigation Bar */
+.nav {
+    background-color: #444;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    margin: 0 15px;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav a:hover {
+    background-color: rgb(247, 250, 224);
+    color: #444;
+    border-radius: 5px;
+}
+
+.text {
+    padding: 50px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.text a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 400;
+}
+body h1, h2{
+    text-align: center;
+    margin:5px;
+}
+button {
+    background-color: #444;
+    color: white;
+    font-family: "Playfair Display", serif;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    font-weight: 700;
+}
+hr {
+    width: 600px;
+    size: 2;
+    color:#444;
+}
+p {
+    font-size: 18px;
+    font-weight: 400;
+}
+img {
+    border-radius: 10px;
+}
+footer {
+    position:fixed;
+    background-color: #444;
+    color:white;
+    width:100%;
+    font-weight: 700;
+    bottom:0;
+    padding: 5px 0;   
+}
+footer a{
+    margin: 0 15px;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Images</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            img {
+                max-height: 400px;
+                margin: 0 auto;
+                display: block;
+                opacity: 0; 
+                transition: opacity 1s ease-in-out; 
+            }
+            p, h3 {
+                text-align: center;
+                width: 400px;
+                margin:auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="nav">
+            <a class="Home" href="home.html">Home</a>
+            <a href="hobbies.html">Hobbies</a>
+            <a href="photos.html">Images</a>
+            <a href="spotify.html">Spotify Wraped</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <h2>Here are some images I like</h2>
+        <div>
+            <img id="image" src="">
+        </div>
+        <div class="footer">
+            <footer>
+                <a>2024 - Andreas Thomaidis</a>
+            </footer>
+        </div><br>
+        <h3>Enjoy the slide show!</h3><hr>
+        <p>I selected images from two of my favorite anime shows, and another image from my favorite manga
+            series. The anime referenced are "Neon Genesis Evangelion" and "Spirited Away". The manga
+            is "Berserk".
+        </p>
+
+        <script>
+            const images = [
+                "redeva.jpeg",
+                "gutssits.jpg",
+                "Untitled-1.png"
+            ];
+
+            let current = 0;
+            const currentImage = document.getElementById('image');
+
+            function changeCurrent() {
+                fadeOut(() => {
+                    current = (current + 1) % images.length; 
+                    updateImage();
+                    fadeIn();
+                });
+            }
+
+            function updateImage() {
+                currentImage.src = images[current];
+            }
+
+            function fadeOut(callback) {
+                currentImage.style.opacity = 0; 
+                setTimeout(callback, 800); 
+            }
+
+            function fadeIn() {
+                currentImage.style.opacity = 1; 
+            }
+
+            window.onload = () => {
+                updateImage(); 
+                fadeIn(); 
+                setInterval(changeCurrent, 5000); 
+            };
+        </script>
+    </body>
+</html>

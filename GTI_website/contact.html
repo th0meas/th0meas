@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contact</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            .inputs {
+                margin:auto;
+                text-align: center;
+                padding:10px;
+
+            }
+            input {
+                width:300px;
+                padding: 5px;
+                margin: 5px;
+            }
+            textarea {
+                width: 350px;
+                height: 200px;
+                margin: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="nav">
+            <a class="Home" href="home.html">Home</a>
+            <a href="hobbies.html">Hobbies</a>
+            <a href="photos.html">Images</a>
+            <a href="spotify.html">Spotify Wraped</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <h2>Contact Me</h2>
+        <div class="inputs">
+            <form onsubmit="return validateForm()">
+                <input id="name" type="text" placeholder="Full Name"><br>
+                <input id="email" type="text" placeholder="Email"><br>
+                <textarea id="message" placeholder="Your Message"></textarea><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="footer">
+            <footer>
+                <a>2024 - Andreas Thomaidis</a>
+            </footer>
+        </div>
+
+        <script>
+            function validateForm(){
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                if (name === "" || email === "" || message === "") {
+                alert("All fields must be filled out.");
+                return false;   
+                }
+                const wordCount = message.trim().split(/\s+/).length;
+            if (wordCount > 100) {
+                alert("The message cannot contain more than 100 words.");
+                return false;
+            }
+            alert("Submitted Successfully!")
+            return true;
+            }
+        </script>
+    </body>
+</html>
