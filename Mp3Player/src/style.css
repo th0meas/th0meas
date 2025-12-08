@@ -1,72 +1,111 @@
-/* 1. The Main Background */
 .root {
-    -fx-background-color: #121212;
+    -fx-background-color: #121212; /* Deep Matte Black */
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 14px;
 }
 
-/* 2. Text Labels (Song Name, Frequency Labels) */
+/* All Labels (Song Name, Titles) */
 .label {
-    -fx-text-fill: white;
-    -fx-font-family: "Arial"; /* Or your preferred font */
+    -fx-text-fill: #E0E0E0; /* Soft White */
 }
 
-/* 3. The Sidebar (Tree View) */
+/* The "MP3 PLAYER" Header */
+.header-label {
+    -fx-text-fill: #2ECC71; /* Neon Green */
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.3), 10, 0, 0, 0);
+}
+
+/* Remove the default white box borders */
 .tree-view {
     -fx-background-color: transparent;
-    -fx-control-inner-background: #181818; /* Dark Grey inside */
+    -fx-control-inner-background: transparent;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
+
+/* The individual cells (rows) */
 .tree-cell {
-    -fx-background-color: #181818;
-    -fx-text-fill: #A0A0A0; /* Grey text for files */
-}
-.tree-cell:selected {
-    -fx-background-color: #2ECC71; /* Green highlight */
-    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-text-fill: #B0B0B0; /* Dim grey text for unselected files */
+    -fx-padding: 5px;
 }
 
-/* 4. Buttons (Open Folder, Play, etc.) */
+/* Hover effect for rows */
+.tree-cell:filled:hover {
+    -fx-background-color: #1F1F1F;
+}
+
+/* Selected row styling */
+.tree-cell:filled:selected {
+    -fx-background-color: #2ECC71; /* Neon Green background */
+    -fx-text-fill: #000000; /* Black text for contrast */
+    -fx-font-weight: bold;
+}
+
+/* The Track (Background line) */
+.slider .track {
+    -fx-background-color: #333333;
+    -fx-background-radius: 5px;
+    -fx-min-width: 12px;  /* Thickness for Vertical EQ Sliders */
+    -fx-min-height: 12px; /* Thickness for Horizontal Volume Slider */
+}
+
+/* The Knob (Thumb) */
+.slider .thumb {
+    -fx-background-color: #2ECC71; /* Neon Green */
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 1);
+}
+
+/* Hover effect on the knob */
+.slider .thumb:hover {
+    -fx-background-color: #ffffff; /* Turns white when you grab it */
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
 .button {
     -fx-background-color: transparent;
-    -fx-text-fill: #2ECC71;
     -fx-border-color: #2ECC71;
-    -fx-border-radius: 5;
+    -fx-border-radius: 20px; /* Rounded pill shape */
+    -fx-background-radius: 20px;
+    -fx-text-fill: #2ECC71;
     -fx-cursor: hand;
+    -fx-padding: 8px 20px; /* Make them wider */
+    -fx-font-weight: bold;
 }
+
 .button:hover {
     -fx-background-color: rgba(46, 204, 113, 0.1); /* Slight green glow */
+    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.4), 10, 0, 0, 0);
 }
 
-/* 5. The Vertical Sliders (EQ) */
-/* Vertical EQ Sliders */
-.slider:vertical .track {
-    -fx-background-color: #333333; /* Dark Grey Track */
-    -fx-min-width: 15px;           /* Make the track THICK */
-    -fx-background-radius: 10px;   /* Rounded ends */
-    -fx-border-color: transparent;
+.button:pressed {
+    -fx-background-color: #2ECC71;
+    -fx-text-fill: #000000;
 }
 
-.slider:vertical .thumb {
-    -fx-background-color: #2ECC71; /* Green Knob */
-    -fx-background-radius: 50%;    /* Perfect Circle */
-    -fx-min-height: 25px;          /* Big grip area */
-    -fx-min-width: 25px;
-    /* This centers the thumb on the track */
-    -fx-background-insets: 0;
-}
-
-/* Optional: Hover effect for the thumb */
-.slider:vertical .thumb:hover {
-    -fx-background-color: #ffffff; /* Turns white when you grab it */
-    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.6), 10, 0, 0, 0); /* Green Glow */
-}
-
-/* 6. The Visualizer Bars (Progress Bars) */
-.progress-bar .track {
+/* The Scrollbar Track */
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
-.progress-bar .bar {
-    -fx-background-color: #2ECC71; /* Green Bars */
-    -fx-background-radius: 2;
+
+/* The Scrollbar Thumb (Dragger) */
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #444444;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #2ECC71;
+}
+
+.button:hover .svg-path {
+    -fx-fill: #ffffff;
 }
