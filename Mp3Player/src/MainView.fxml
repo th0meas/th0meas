@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="musicplayer.MusicController">
+   <children>
+      <BorderPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #121212;" stylesheets="@style.css">
+         <left>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="openButton" mnemonicParsing="false" text="OPEN FOLDER" textFill="#2ecc71" />
+                  <TreeView fx:id="fileTree" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Slider fx:id="slider1" orientation="VERTICAL" />
+                  <Slider fx:id="slider2" layoutX="10.0" layoutY="10.0" orientation="VERTICAL" />
+                  <Slider fx:id="slider3" layoutX="44.0" layoutY="10.0" orientation="VERTICAL" />
+                  <Slider fx:id="slider4" layoutX="78.0" layoutY="10.0" orientation="VERTICAL" />
+                  <Slider fx:id="slider5" layoutX="112.0" layoutY="10.0" orientation="VERTICAL" />
+                  <Slider fx:id="slider6" layoutX="146.0" layoutY="10.0" orientation="VERTICAL" />
+               </children>
+            </HBox>
+         </center>
+         <right>
+            <VBox fx:id="visualizerContainer" prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER_RIGHT">
+               <children>
+                  <ProgressBar prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="10.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="35.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="60.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="85.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="110.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="135.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="160.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="185.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="210.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="235.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="260.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="285.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="310.0" prefWidth="200.0" progress="0.0" />
+                  <ProgressBar layoutX="10.0" layoutY="335.0" prefWidth="200.0" progress="0.0" />
+               </children>
+            </VBox>
+         </right>
+         <bottom>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1E1E1E;" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label fx:id="songLabel" text="Song Name" />
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="prevButton" mnemonicParsing="false" text="Button" />
+                  <Button fx:id="playButton" layoutX="1136.0" layoutY="30.0" mnemonicParsing="false" text="Button" />
+                  <Button fx:id="nextButton" layoutX="1136.0" layoutY="30.0" mnemonicParsing="false" text="Button" />
+                  <Region layoutX="100.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Slider fx:id="volumeSlider" value="50.0" />
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,72 @@
+/* 1. The Main Background */
+.root {
+    -fx-background-color: #121212;
+}
+
+/* 2. Text Labels (Song Name, Frequency Labels) */
+.label {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial"; /* Or your preferred font */
+}
+
+/* 3. The Sidebar (Tree View) */
+.tree-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: #181818; /* Dark Grey inside */
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.tree-cell {
+    -fx-background-color: #181818;
+    -fx-text-fill: #A0A0A0; /* Grey text for files */
+}
+.tree-cell:selected {
+    -fx-background-color: #2ECC71; /* Green highlight */
+    -fx-text-fill: white;
+}
+
+/* 4. Buttons (Open Folder, Play, etc.) */
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2ECC71;
+    -fx-border-color: #2ECC71;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+.button:hover {
+    -fx-background-color: rgba(46, 204, 113, 0.1); /* Slight green glow */
+}
+
+/* 5. The Vertical Sliders (EQ) */
+/* Vertical EQ Sliders */
+.slider:vertical .track {
+    -fx-background-color: #333333; /* Dark Grey Track */
+    -fx-min-width: 15px;           /* Make the track THICK */
+    -fx-background-radius: 10px;   /* Rounded ends */
+    -fx-border-color: transparent;
+}
+
+.slider:vertical .thumb {
+    -fx-background-color: #2ECC71; /* Green Knob */
+    -fx-background-radius: 50%;    /* Perfect Circle */
+    -fx-min-height: 25px;          /* Big grip area */
+    -fx-min-width: 25px;
+    /* This centers the thumb on the track */
+    -fx-background-insets: 0;
+}
+
+/* Optional: Hover effect for the thumb */
+.slider:vertical .thumb:hover {
+    -fx-background-color: #ffffff; /* Turns white when you grab it */
+    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.6), 10, 0, 0, 0); /* Green Glow */
+}
+
+/* 6. The Visualizer Bars (Progress Bars) */
+.progress-bar .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.progress-bar .bar {
+    -fx-background-color: #2ECC71; /* Green Bars */
+    -fx-background-radius: 2;
+}
