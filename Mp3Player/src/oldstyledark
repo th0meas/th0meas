@@ -1,0 +1,111 @@
+.root {
+    -fx-background-color: #121212; /* Deep Matte Black */
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* All Labels (Song Name, Titles) */
+.label {
+    -fx-text-fill: #E0E0E0; /* Soft White */
+}
+
+/* The "MP3 PLAYER" Header */
+.header-label {
+    -fx-text-fill: #2ECC71; /* Neon Green */
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.3), 10, 0, 0, 0);
+}
+
+/* Remove the default white box borders */
+.tree-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* The individual cells (rows) */
+.tree-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #B0B0B0; /* Dim grey text for unselected files */
+    -fx-padding: 5px;
+}
+
+/* Hover effect for rows */
+.tree-cell:filled:hover {
+    -fx-background-color: #1F1F1F;
+}
+
+/* Selected row styling */
+.tree-cell:filled:selected {
+    -fx-background-color: #2ECC71; /* Neon Green background */
+    -fx-text-fill: #000000; /* Black text for contrast */
+    -fx-font-weight: bold;
+}
+
+/* The Track (Background line) */
+.slider .track {
+    -fx-background-color: #333333;
+    -fx-background-radius: 5px;
+    -fx-min-width: 12px;  /* Thickness for Vertical EQ Sliders */
+    -fx-min-height: 12px; /* Thickness for Horizontal Volume Slider */
+}
+
+/* The Knob (Thumb) */
+.slider .thumb {
+    -fx-background-color: #2ECC71; /* Neon Green */
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 1);
+}
+
+/* Hover effect on the knob */
+.slider .thumb:hover {
+    -fx-background-color: #ffffff; /* Turns white when you grab it */
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-border-color: #2ECC71;
+    -fx-border-radius: 20px; /* Rounded pill shape */
+    -fx-background-radius: 20px;
+    -fx-text-fill: #2ECC71;
+    -fx-cursor: hand;
+    -fx-padding: 8px 20px; /* Make them wider */
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: rgba(46, 204, 113, 0.1); /* Slight green glow */
+    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.4), 10, 0, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: #2ECC71;
+    -fx-text-fill: #000000;
+}
+
+/* The Scrollbar Track */
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* The Scrollbar Thumb (Dragger) */
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #444444;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #2ECC71;
+}
+
+.button:hover .svg-path {
+    -fx-fill: #ffffff;
+}

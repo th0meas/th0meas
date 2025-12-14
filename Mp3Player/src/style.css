@@ -1,111 +1,133 @@
+/* === 3-TONE SILVER THEME === */
+
+/* 1. MAIN BACKGROUND (Center Area) */
 .root {
-    -fx-background-color: #121212; /* Deep Matte Black */
+    -fx-background-color: #D6D6D6 !important; /* Base Silver */
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 14px;
 }
 
-/* All Labels (Song Name, Titles) */
+/* 2. THE SIDEBAR (Slightly Darker) */
+#sidebar {
+    -fx-background-color: #D1D1D1; /* Medium Grey */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0); /* Subtle shadow on right */
+}
+
+/* 3. THE FOOTER (Much Darker) */
+#footer {
+    -fx-background-color: #C4C4C4; /* Dark Grey / Charcoal */
+    -fx-background-radius: 0 0 0 0; /* Optional: Round top corners */
+}
+
+/* === TEXT COLORS === */
+/* Default text (for silver background) is dark */
 .label {
-    -fx-text-fill: #E0E0E0; /* Soft White */
+    -fx-text-fill: #222222;
 }
 
-/* The "MP3 PLAYER" Header */
+/* Header Text */
 .header-label {
-    -fx-text-fill: #2ECC71; /* Neon Green */
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.3), 10, 0, 0, 0);
-}
-
-/* Remove the default white box borders */
-.tree-view {
-    -fx-background-color: transparent;
-    -fx-control-inner-background: transparent;
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-}
-
-/* The individual cells (rows) */
-.tree-cell {
-    -fx-background-color: transparent;
-    -fx-text-fill: #B0B0B0; /* Dim grey text for unselected files */
-    -fx-padding: 5px;
-}
-
-/* Hover effect for rows */
-.tree-cell:filled:hover {
-    -fx-background-color: #1F1F1F;
-}
-
-/* Selected row styling */
-.tree-cell:filled:selected {
-    -fx-background-color: #2ECC71; /* Neon Green background */
-    -fx-text-fill: #000000; /* Black text for contrast */
-    -fx-font-weight: bold;
-}
-
-/* The Track (Background line) */
-.slider .track {
-    -fx-background-color: #333333;
-    -fx-background-radius: 5px;
-    -fx-min-width: 12px;  /* Thickness for Vertical EQ Sliders */
-    -fx-min-height: 12px; /* Thickness for Horizontal Volume Slider */
-}
-
-/* The Knob (Thumb) */
-.slider .thumb {
-    -fx-background-color: #2ECC71; /* Neon Green */
-    -fx-background-radius: 50%;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 1);
-}
-
-/* Hover effect on the knob */
-.slider .thumb:hover {
-    -fx-background-color: #ffffff; /* Turns white when you grab it */
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-}
-
-.button {
-    -fx-background-color: transparent;
-    -fx-border-color: #2ECC71;
-    -fx-border-radius: 20px; /* Rounded pill shape */
-    -fx-background-radius: 20px;
+    /* Match the Progress Bar Green exactly */
     -fx-text-fill: #2ECC71;
-    -fx-cursor: hand;
-    -fx-padding: 8px 20px; /* Make them wider */
-    -fx-font-weight: bold;
-}
 
-.button:hover {
-    -fx-background-color: rgba(46, 204, 113, 0.1); /* Slight green glow */
+    /* Make it much bigger */
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+
+    /* Optional: Add a subtle glow to match the neon vibe */
     -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.4), 10, 0, 0, 0);
 }
 
+/* Footer Text (Song Title) must be WHITE because footer is dark */
+#footer .label {
+    -fx-text-fill: #333333;
+}
+
+/* === TREE VIEW (Sidebar) === */
+.tree-view {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.tree-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-padding: 5px;
+}
+.tree-cell:filled:hover {
+    -fx-background-color: #B0B0B0; /* Darker than sidebar */
+}
+.tree-cell:filled:selected {
+    -fx-background-color: #555555; /* Dark Grey selection */
+    -fx-text-fill: #2ECC71; /* Neon Text */
+    -fx-font-weight: bold;
+}
+
+/* === SLIDERS === */
+/* Standard Sliders (EQ) - Dark Grey Track */
+.slider .track {
+    -fx-background-color: #888888;
+    -fx-background-radius: 5px;
+}
+
+/* Footer Slider (Progress/Volume) - Lighter Track for contrast against dark footer */
+#footer .slider .track {
+    -fx-background-color: #555555;
+}
+
+.slider .thumb {
+    -fx-background-color: #2ECC71;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 4, 0, 0, 1);
+}
+.slider .thumb:hover {
+    -fx-background-color: #FFFFFF;
+}
+
+/* === BUTTONS === */
+.button {
+    -fx-background-color: transparent;
+    -fx-border-color: #27AE60;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-text-fill: #27AE60;
+    -fx-padding: 8px 20px;
+    -fx-font-weight: bold;
+}
+
+/* Footer Buttons need to pop against dark grey */
+#footer .button {
+    -fx-border-color: #2ECC71; /* Brighter neon border */
+    -fx-text-fill: #2ECC71;
+}
+
+.button:hover {
+    -fx-background-color: rgba(39, 174, 96, 0.2);
+}
 .button:pressed {
     -fx-background-color: #2ECC71;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #FFFFFF;
 }
 
-/* The Scrollbar Track */
-.scroll-bar:vertical .track,
-.scroll-bar:horizontal .track {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+/* SVG Icons */
+.svg-path { -fx-fill: #27AE60; }
+
+/* Footer Icons are brighter */
+#footer .svg-path { -fx-fill: #2ECC71; }
+
+.button:pressed .svg-path { -fx-fill: #FFFFFF; }
+
+/* === VISUALIZER === */
+.visualizer-bar {
+    -fx-fill: linear-gradient(to top, #2C3E50, #2ECC71);
+    -fx-arc-width: 5;
+    -fx-arc-height: 5;
 }
 
-/* The Scrollbar Thumb (Dragger) */
-.scroll-bar:vertical .thumb,
-.scroll-bar:horizontal .thumb {
-    -fx-background-color: #444444;
-    -fx-background-radius: 5em;
+/* Style for the small section headers (EQ / Visualizer) */
+.section-label {
+    -fx-text-fill: #888888; /* Dim Grey */
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+    -fx-letter-spacing: 1px; /* Spaced out letters look cool */
 }
+.label {
 
-.scroll-bar:vertical .thumb:hover,
-.scroll-bar:horizontal .thumb:hover {
-    -fx-background-color: #2ECC71;
-}
-
-.button:hover .svg-path {
-    -fx-fill: #ffffff;
-}

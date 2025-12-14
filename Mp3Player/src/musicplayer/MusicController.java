@@ -17,12 +17,14 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MusicController {
 
     // --- FXML UI COMPONENTS ---
     @FXML private Button openButton;
     @FXML private Button playButton;
+    @FXML private Button pauseButton;
     @FXML private Button stopButton;
     @FXML private Button nextButton;
     @FXML private Button prevButton;
@@ -30,42 +32,63 @@ public class MusicController {
 
     @FXML private Slider volumeSlider;
     @FXML private Label songLabel;
-
-    // NEW: The Progress/Seek Slider
     @FXML private Slider progressSlider;
 
     @FXML private TreeView<File> fileTree;
     @FXML private HBox visualizerContainer;
 
-    @FXML private Slider slider1, slider2, slider3, slider4, slider5, slider6;
+    @FXML private Slider slider1;
+    @FXML private Slider slider2;
+    @FXML private Slider slider3;
+    @FXML private Slider slider4;
+    @FXML private Slider slider5;
+    @FXML private Slider slider6;
 
-    // --- LOGIC VARIABLES ---
+    //time progress bar
+    @FXML private Label currentTimeLabel;
+    @FXML private Label totalTimeLabel;
+
+
     private MediaPlayer mediaPlayer;
     private ArrayList<File> songs = new ArrayList<>();
     private int currentSongIndex = 0;
     private double[] fallDownMultipliers;
-
-    // For the Marquee (Scrolling Text)
     private Timeline marqueeTimeline;
-
-    //for green background when skipping fix
     private boolean isProgrammaticSelection = false;
 
     @FXML
     public void initialize() {
 
-        // 1. SETUP TREE VIEW
+        //song label not showing if song not selected
+        if (songLabel != null) songLabel.setText("");
+
+        // 1. Setup TreeView with strictly typed File objects
         fileTree.setCellFactory(tv -> new TreeCell<File>() {
             @Override
             protected void updateItem(File item, boolean empty) {
                 super.updateItem(item, empty);
-                setText((empty || item == null) ? null : item.getName());
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName());
+                }
             }
         });
 
-        // 2. SETUP PROGRESS SLIDER (Seek functionality)
+        setupButtonActions();
+
+        // 2. Setup Treeview
+        fileTree.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (isProgrammaticSelection) return;
+            if (newVal != null && newVal.isLeaf()) {
+                File selectedFile = newVal.getValue();
+                currentSongIndex = songs.indexOf(selectedFile);
+                playFile(selectedFile);
+            }
+        });
+
+        // 3. Setup prog bar
         if (progressSlider != null) {
-            // When user drags the slider, seek to that position
             progressSlider.setOnMousePressed(e -> {
                 if (mediaPlayer != null) mediaPlayer.pause();
             });
@@ -76,17 +99,15 @@ public class MusicController {
                 }
             });
         }
-
-        setupButtonActions();
     }
 
     private void setupButtonActions() {
-        // Open Folder
         if (openButton != null) {
             openButton.setOnAction(event -> {
                 DirectoryChooser dc = new DirectoryChooser();
                 dc.setTitle("Select Music Folder");
-                File dir = dc.showDialog(openButton.getScene().getWindow());
+                Stage stage = (Stage) openButton.getScene().getWindow();
+                File dir = dc.showDialog(stage);
                 if (dir != null) {
                     songs.clear();
                     TreeItem<File> root = new TreeItem<>(dir);
@@ -97,37 +118,15 @@ public class MusicController {
             });
         }
 
-        // Tree Click
-        // Inside initialize()...
-
-        if (fileTree != null) {
-            fileTree.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-
-                // --- NEW LINE: STOP if the computer selected it ---
-                if (isProgrammaticSelection) return;
-
-                if (newVal != null && newVal.isLeaf()) {
-                    File selectedFile = newVal.getValue();
-                    currentSongIndex = songs.indexOf(selectedFile);
-                    playFile(selectedFile);
-                }
-            });
-        }
-
         if (playButton != null) {
             playButton.setOnAction(e -> {
                 if (mediaPlayer == null) return;
-
                 String playShape = "M8 5v14l11-7z";
                 String pauseShape = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
-
                 if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
                     mediaPlayer.pause();
                     if (playIcon != null) playIcon.setContent(playShape);
-
-                    // --- NEW: Drop the bars immediately ---
                     resetVisualizerBars();
-
                 } else {
                     mediaPlayer.play();
                     if (playIcon != null) playIcon.setContent(pauseShape);
@@ -135,18 +134,15 @@ public class MusicController {
             });
         }
 
-        // Stop Button
         if (stopButton != null) {
             stopButton.setOnAction(e -> {
                 if (mediaPlayer != null) {
                     mediaPlayer.stop();
-                    // --- NEW: Drop the bars immediately ---
                     resetVisualizerBars();
                 }
             });
         }
 
-        // Next/Prev
         if (nextButton != null) nextButton.setOnAction(e -> playNextSong());
         if (prevButton != null) prevButton.setOnAction(e -> {
             if (currentSongIndex > 0) {
@@ -161,100 +157,67 @@ public class MusicController {
             currentSongIndex++;
             playFile(songs.get(currentSongIndex));
         } else {
-            currentSongIndex = 0; // Loop
+            currentSongIndex = 0;
             playFile(songs.get(currentSongIndex));
         }
     }
 
-    private void startMarquee(String text) {
-        if (marqueeTimeline != null) marqueeTimeline.stop();
-
-        // If text fits, just show it without scrolling
-        // (Increased threshold slightly so short titles don't jitter)
-        if (text.length() < 30) {
-            songLabel.setText(text);
-            return;
-        }
-
-        final StringBuilder sb = new StringBuilder(text);
-
-        // CHANGE THIS LINE: Increased from 200 to 400 for slower, smoother shifts
-        marqueeTimeline = new Timeline(new KeyFrame(Duration.millis(400), e -> {
-            String current = sb.toString();
-            String moved = current.substring(1) + current.charAt(0);
-            sb.replace(0, sb.length(), moved);
-            songLabel.setText(moved);
-        }));
-        marqueeTimeline.setCycleCount(Animation.INDEFINITE);
-        marqueeTimeline.play();
-    }
-
     private void playFile(File file) {
-        // 1. Clean up the previous song
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.dispose();
         }
-
         try {
-            // 2. Load the new song
             Media media = new Media(file.toURI().toString());
             mediaPlayer = new MediaPlayer(media);
-
-            // 3. SYNC THE TREEVIEW (Highlight the song in the list)
             updateTreeSelection(file);
-
-            // 4. Start the Scrolling Text
             startMarquee(file.getName());
 
-            // 5. Volume Control
             if (volumeSlider != null) {
-                mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
+                mediaPlayer.setVolume(volumeSlider.getValue() / 50.0);
                 volumeSlider.valueProperty().addListener((o, old, val) ->
-                        mediaPlayer.setVolume(val.doubleValue() / 100.0));
+                        mediaPlayer.setVolume(val.doubleValue() / 50.0));
             }
-
-            // 6. Progress Bar / Seek Logic
+            // --- PROGRESS BAR & TIMESTAMPS ---
             if (progressSlider != null) {
-                // Update slider as song plays
+
+                // 1. Update Current Time as song plays
                 mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+                    // Update the slider position
                     if (!progressSlider.isValueChanging()) {
                         progressSlider.setValue(newTime.toSeconds());
                     }
+                    // Update the "00:00" text on the left
+                    if (currentTimeLabel != null) {
+                        currentTimeLabel.setText(formatTime(newTime.toSeconds()));
+                    }
                 });
 
-                // Set max value when metadata is ready
+                // 2. Set Total Time when song is ready
                 mediaPlayer.setOnReady(() -> {
+                    double totalDuration = media.getDuration().toSeconds();
+
+                    // Set slider max
                     progressSlider.setMin(0);
-                    progressSlider.setMax(media.getDuration().toSeconds());
+                    progressSlider.setMax(totalDuration);
+
+                    // Set the "03:45" text on the right
+                    if (totalTimeLabel != null) {
+                        totalTimeLabel.setText(formatTime(totalDuration));
+                    }
                 });
             }
-
-            // 7. Auto-Next when song finishes
             mediaPlayer.setOnEndOfMedia(this::playNextSong);
-
-            // 8. Restart Visuals & EQ
             setupEqualizer();
             startVisualizer();
-
-            // 9. Play and update Icon
             mediaPlayer.play();
-
-            // Set Pause Icon (since it's now playing)
-            if (playIcon != null) {
-                playIcon.setContent("M6 19h4V5H6v14zm8-14v14h4V5h-4z");
-            }
+            if (playIcon != null) playIcon.setContent("M6 19h4V5H6v14zm8-14v14h4V5h-4z");
 
         } catch (Exception e) {
-            System.out.println("Error playing file: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
-    // --- COPY YOUR EXISTING 'setupEqualizer' AND 'startVisualizer' AND 'findFiles' METHODS HERE ---
-    // (I omitted them to save space, but DO NOT DELETE THEM from your file!)
-    // Just paste your previous EQ/Visualizer methods back in at the bottom.
-
-    // --- EQUALIZER ---
     private void setupEqualizer() {
         if (mediaPlayer == null) return;
         mediaPlayer.getAudioEqualizer().setEnabled(true);
@@ -271,36 +234,106 @@ public class MusicController {
         }
     }
 
-    // --- VISUALIZER ---
     private void startVisualizer() {
         if (mediaPlayer == null || visualizerContainer == null) return;
-        mediaPlayer.setAudioSpectrumInterval(0.016);
-        mediaPlayer.setAudioSpectrumThreshold(-90);
-        int barCount = visualizerContainer.getChildren().size();
-        mediaPlayer.setAudioSpectrumNumBands(barCount);
-        if (fallDownMultipliers == null || fallDownMultipliers.length != barCount) fallDownMultipliers = new double[barCount];
+
+        mediaPlayer.setAudioSpectrumInterval(0.016); // 60 FPS
+        mediaPlayer.setAudioSpectrumThreshold(-80);  // Sensitivity floor
+
+        int visualBarCount = visualizerContainer.getChildren().size(); // 15 bars
+
+
+        mediaPlayer.setAudioSpectrumNumBands(visualBarCount * 3);
+
+        if (fallDownMultipliers == null || fallDownMultipliers.length != visualBarCount) {
+            fallDownMultipliers = new double[visualBarCount];
+        }
 
         mediaPlayer.setAudioSpectrumListener((timestamp, duration, magnitudes, phases) -> {
-            for (int i = 0; i < barCount; i++) {
+
+            // Loop only through the visible bars (0 to 14)
+            for (int i = 0; i < visualBarCount; i++) {
                 if (visualizerContainer.getChildren().get(i) instanceof Rectangle) {
                     Rectangle bar = (Rectangle) visualizerContainer.getChildren().get(i);
+
+                    // We are reading from the start of the array, so we get the Bass/Mids automatically
                     float rawDB = magnitudes[i];
-                    double normalized = (rawDB + 90) / 90.0;
-                    if (i < 5) {
-                        if (normalized < 0.2) normalized = 0;
-                    } else {
-                        if (normalized < 0.05) normalized = 0;
-                        else normalized *= (1.2 + ((i - 5) * 0.15));
-                    }
-                    normalized = Math.max(0, Math.min(1, normalized));
+
+                    // 1. BASE MATH (-80dB floor)
+                    double normalized = (rawDB + 80) / 80.0;
+
+                    // 2. GENTLE TREBLE BOOST (Since we zoomed in, we don't need a crazy 8x boost anymore)
+                    // Just a small curve to help the right-side bars
+                    double boost = 1.0 + (i * 0.1);
+                    normalized *= boost;
+
+                    // 3. NOISE GATE (Clean up silence)
+                    if (normalized < 0.1) normalized = 0;
+
+                    // 4. GRAVITY (Fall down logic)
+                    double currentHeightPercent = fallDownMultipliers[i];
                     double decaySpeed = 0.02;
-                    if (normalized > fallDownMultipliers[i]) fallDownMultipliers[i] = normalized;
-                    else fallDownMultipliers[i] = Math.max(0, fallDownMultipliers[i] - decaySpeed);
-                    double vol = volumeSlider.getValue() / 100.0;
-                    bar.setHeight(fallDownMultipliers[i] * 500.0 * vol);
+
+                    if (normalized > currentHeightPercent) {
+                        fallDownMultipliers[i] = normalized;
+                    } else {
+                        fallDownMultipliers[i] = Math.max(0, currentHeightPercent - decaySpeed);
+                    }
+
+                    // 5. APPLY VOLUME & HEIGHT
+                    // Using 600.0 to ensure they hit the top of your taller UI
+                    double vol = (volumeSlider != null) ? volumeSlider.getValue() / 100.0 : 1.0;
+
+                    // Allow bars to go slightly over 100% for impact, but clamp at max height
+                    double finalHeight = fallDownMultipliers[i] * 500.0 * vol;
+                    bar.setHeight(Math.min(500.0, finalHeight));
                 }
             }
         });
+    }
+
+    private void resetVisualizerBars() {
+        if (visualizerContainer == null) return;
+        for (javafx.scene.Node node : visualizerContainer.getChildren()) {
+            if (node instanceof Rectangle) ((Rectangle) node).setHeight(0);
+        }
+        if (fallDownMultipliers != null) Arrays.fill(fallDownMultipliers, 0.0);
+    }
+
+    private void startMarquee(String text) {
+        if (marqueeTimeline != null) marqueeTimeline.stop();
+        if (text.length() < 30) {
+            songLabel.setText(text);
+            return;
+        }
+        final StringBuilder sb = new StringBuilder(text + "   *** ");
+        marqueeTimeline = new Timeline(new KeyFrame(Duration.millis(400), e -> {
+            String current = sb.toString();
+            String moved = current.substring(1) + current.charAt(0);
+            sb.replace(0, sb.length(), moved);
+            songLabel.setText(moved);
+        }));
+        marqueeTimeline.setCycleCount(Animation.INDEFINITE);
+        marqueeTimeline.play();
+    }
+
+    private void updateTreeSelection(File file) {
+        if (fileTree == null || fileTree.getRoot() == null) return;
+        isProgrammaticSelection = true;
+        findAndSelect(fileTree.getRoot(), file);
+        isProgrammaticSelection = false;
+    }
+
+    private boolean findAndSelect(TreeItem<File> item, File target) {
+        if (item.getValue().equals(target)) {
+            fileTree.getSelectionModel().select(item);
+            fileTree.scrollTo(fileTree.getRow(item));
+            return true;
+        }
+        for (TreeItem<File> child : item.getChildren()) {
+            if (findAndSelect(child, target)) return true;
+        }
+        return false;
     }
 
     private void findFiles(File directory, TreeItem<File> parentItem) {
@@ -322,44 +355,10 @@ public class MusicController {
         }
     }
 
-    // Recursive helper to find and select a file in the tree
-    private void updateTreeSelection(File file) {
-        if (fileTree.getRoot() == null) return;
-
-        isProgrammaticSelection = true; // LOCK (Don't trigger playFile again)
-
-        findAndSelect(fileTree.getRoot(), file);
-
-        isProgrammaticSelection = false; // UNLOCK
-    }
-
-    // Recursively walks the tree to find the matching item
-    private boolean findAndSelect(TreeItem<File> item, File target) {
-        if (item.getValue().equals(target)) {
-            fileTree.getSelectionModel().select(item);
-            fileTree.scrollTo(fileTree.getRow(item)); // Auto-scroll to show it!
-            return true;
-        }
-
-        for (TreeItem<File> child : item.getChildren()) {
-            if (findAndSelect(child, target)) return true;
-        }
-        return false;
-    }
-    private void resetVisualizerBars() {
-        if (visualizerContainer == null) return;
-
-        // 1. Force all bars to Height 0
-        for (javafx.scene.Node node : visualizerContainer.getChildren()) {
-            if (node instanceof Rectangle) {
-                ((Rectangle) node).setHeight(0);
-            }
-        }
-
-        // 2. Reset the Gravity Memory (so they don't ghost back up when you resume)
-        if (fallDownMultipliers != null) {
-            java.util.Arrays.fill(fallDownMultipliers, 0.0);
-        }
+    private String formatTime(double seconds) {
+        int totalSeconds = (int) seconds;
+        int minutes = totalSeconds / 60;
+        int secs = totalSeconds % 60;
+        return String.format("%02d:%02d", minutes, secs);
     }
 }
-
