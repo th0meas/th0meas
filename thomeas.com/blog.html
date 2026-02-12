@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Andreas Thomaidis</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+        .container {    
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            height: 100vh; 
+            max-width: 900px; 
+            margin: 0 auto;
+        }
+        .nav {
+            padding:10px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .filetree {
+            width: 500px;
+            padding: 20px;
+            background-color: rgb(248, 248, 248);
+            text-align: left;
+            
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .filetree-item {
+            margin: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .filetree-folder {
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .filetree-file {
+            color: #333;
+            margin-left: 20px;
+        }
+        
+        .filetree-icon {
+            margin-right: 6px;
+        }
+        
+        .filetree-folder.collapsed + .filetree-contents {
+            display: none;
+        }
+        
+        .filetree-contents {
+            border-left: 1px solid #ccc;
+            margin-left: 10px;
+            padding-left: 10px;
+        }
+    </style>
+</head>    
+<body>
+    <div class="container">
+        <h1>Blog</h1>
+        
+        <div class="filetree">
+            <div class="filetree-item">
+                <div class="filetree-folder" onclick="toggleFolder(this)">
+                    <span class="filetree-icon"></span>2026
+                </div>
+                <div class="filetree-contents">
+                    <!--file / month of february-->
+                    <div class="filetree-item">
+                        <div class="filetree-folder" onclick="toggleFolder(this)">
+                            <span class="filetree-icon"></span>February
+                        </div>
+                        <div class="filetree-contents">
+                            <div class="filetree-item filetree-file">
+                                <span class="filetree-icon"></span><a href="/thomeas.com/logs/2026-02-12.html">2026-02-12</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleFolder(element) {
+            element.classList.toggle('collapsed');
+        }
+    </script>
+</body>
+
+
+</html>
