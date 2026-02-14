@@ -1,0 +1,209 @@
+{
+  "main": {
+    "id": "7c7def77dcaad4d6",
+    "type": "split",
+    "children": [
+      {
+        "id": "0fefe701b5018381",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e6f451b41b905be2",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f69c3acdf65314f5",
+    "type": "split",
+    "children": [
+      {
+        "id": "0282cdbab2c923d7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f0a91848b6e7cb0e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "e933c93a1aa51d96",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "afa685f91f039b0e",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 207.5
+  },
+  "right": {
+    "id": "72ed5d65bb5b4677",
+    "type": "split",
+    "children": [
+      {
+        "id": "a10f2df4f3ca95b4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6ffe35fa565d09ce",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Notes/OAYS.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for OAYS"
+            }
+          },
+          {
+            "id": "9eb08bf3da1319d1",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Notes/OAYS.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from OAYS"
+            }
+          },
+          {
+            "id": "5f7ce8ad6e5a4d98",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "8f44f23fd137a3d0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Notes/OAYS.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of OAYS"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:Create new base": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "e6f451b41b905be2",
+  "lastOpenFiles": [
+    "Notes/uni/w2024/ddaa/Linked List Queue.md",
+    "Notes/uni/w2024/ddaa/Queue.md",
+    "Notes/uni/w2024/ddaa/Linked List.md",
+    "Notes/uni/w2024/ddaa/Linked List Stack.md",
+    "Notes/uni/w2024/ddaa/DDAA.md",
+    "Notes/uni/w2024/ddaa/Stack.md",
+    "Notes/uni/s2025/Assembly.md",
+    "Notes/uni/s2025/Arduino.md",
+    "Untitled.md",
+    "Notes/uni/uni.md",
+    "Untitled.base",
+    "Notes/uni/s2025",
+    "Notes/uni/w2024/ddaa",
+    "Notes/uni/w2024",
+    "Notes/uni",
+    "Notes/Pager Project.md",
+    "Notes/uni/s2025/pins.md",
+    "Notes/Program Files.md",
+    "Notes/radio receiver.md",
+    "Notes/radio transmitter.md",
+    "Notes/uni/s2025/raexamples.md",
+    "2025-08-28.md",
+    "Notes/uni/s2025/functions.md",
+    "Notes/cpu.gif",
+    "Notes/uni/s2025/OAYS.md",
+    "Pasted image 20250523153058.png",
+    "Notes/uni/s2025/DBMS.md",
+    "Notes/Operating System.md",
+    "Notes/Pager.md",
+    "Notes/uni/s2025/Slides Assembly.md",
+    "Notes/uni/s2025/Lab Notes.md",
+    "Notes/Windows.md",
+    "Notes/Introduction to Obsidian.md",
+    "Untitled.canvas",
+    "Untitled",
+    "Notes/IEEE",
+    "Rough Notes",
+    "Notes"
+  ]
+}

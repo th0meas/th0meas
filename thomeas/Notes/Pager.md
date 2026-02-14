@@ -1,0 +1,3 @@
+A [[radio receiver]] that listens to one station all of the time. A [[radio transmitter]] broadcasts signals over a specific frequency. The pagers have a built-in radio receiver that is turned to the same frequency broadcast of the [[radio transmitter]]. The pagers listen to the signal from the transmitter.
+
+Each pager has a specific identification sequence called **Channel Access Protocol (CAP) code**. The pager listens for its unique CAP code, and when it hears it, acts according to it's programming. For this [[Pager Project]], we want it to make a sound, vibrate, activate LEDs. 
